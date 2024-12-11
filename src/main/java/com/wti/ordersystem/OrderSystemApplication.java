@@ -1,4 +1,4 @@
-package com.wti.order_system;
+package com.wti.ordersystem;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

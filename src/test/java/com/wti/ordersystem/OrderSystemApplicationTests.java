@@ -1,4 +1,4 @@
-package com.wti.order_system;
+package com.wti.ordersystem;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
