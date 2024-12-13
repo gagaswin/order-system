@@ -17,9 +17,9 @@
 - **Response:**
 ```json
 {
-  "id": 1,
-  "name": "Product 1",
-  "type": "Product Type 1",
+  "id": 13,
+  "name": "Product 100",
+  "type": "Product Type 100",
   "stock": 100,
   "price": 50.0
 }
@@ -36,16 +36,79 @@
   "page": 0,
   "data": [
     {
-      "id": 1,
-      "name": "Product 1",
-      "type": "Product Type 1",
-      "stock": 100,
+      "id": 2,
+      "name": "Product 2",
+      "type": "Type 2",
+      "stock": 15,
+      "price": 200.0
+    },
+    {
+      "id": 3,
+      "name": "Product 3",
+      "type": "Type 3",
+      "stock": 5,
+      "price": 50.0
+    },
+    {
+      "id": 4,
+      "name": "Product 4",
+      "type": "Type 4",
+      "stock": 5,
+      "price": 50.0
+    },
+    {
+      "id": 5,
+      "name": "Product 5",
+      "type": "Type 1",
+      "stock": 5,
+      "price": 50.0
+    },
+    {
+      "id": 6,
+      "name": "Product 6",
+      "type": "Type 1",
+      "stock": 5,
+      "price": 50.0
+    },
+    {
+      "id": 7,
+      "name": "Product 7",
+      "type": "Type 2",
+      "stock": 5,
+      "price": 50.0
+    },
+    {
+      "id": 8,
+      "name": "Product 8",
+      "type": "Type 2",
+      "stock": 5,
+      "price": 50.0
+    },
+    {
+      "id": 9,
+      "name": "Product 9",
+      "type": "Type 3",
+      "stock": 5,
+      "price": 50.0
+    },
+    {
+      "id": 10,
+      "name": "Product 10",
+      "type": "Type 3",
+      "stock": 5,
+      "price": 50.0
+    },
+    {
+      "id": 11,
+      "name": "Product 11",
+      "type": "Type 4",
+      "stock": 5,
       "price": 50.0
     }
   ],
-  "size": 10,
-  "totalElements": 100,
-  "totalPages": 10
+  "totalElements": 13,
+  "totalPages": 2,
+  "size": 10
 }
 ```
 
@@ -56,9 +119,9 @@
 {
   "id": 1,
   "name": "Product 1",
-  "type": "Product Type 1",
-  "stock": 100,
-  "price": 50.0
+  "type": "Type 1",
+  "stock": 8,
+  "price": 100.0
 }
 ```
 
@@ -67,8 +130,8 @@
 - **Request Body:**
 ```json
 {
-  "name": "Updated 1",
-  "type": "Updated Type 1",
+  "name": "Updated Name 100",
+  "type": "Updated Type 100",
   "stock": 50,
   "price": 75.0
 }
@@ -76,9 +139,9 @@
 - **Response:**
 ```json
 {
-  "id": 1,
-  "name": "Updated 1",
-  "type": "Updated Type 1",
+  "id": 13,
+  "name": "Updated Name 100",
+  "type": "Updated Type 100",
   "stock": 50,
   "price": 75.0
 }
@@ -111,6 +174,9 @@
   "orderItems": [
     {
       "productId": 1,
+      "bookName": "Product 1",
+      "type": "Type 1",
+      "pricePerQty": 100.0,
       "quantity": 2,
       "price": 200.0
     }
@@ -136,6 +202,9 @@
   "orderItems": [
     {
       "productId": 1,
+      "bookName": "Product 1",
+      "type": "Type 1",
+      "pricePerQty": 100.0,
       "quantity": 2,
       "price": 200.0
     }
@@ -149,25 +218,26 @@
 ```json
 {
   "cartId": 1,
-  "userName": "John Doe",
-  "address": "123 Main St"
+  "itemsId": [1]
 }
 ```
 - **Response:**
 ```json
 {
-  "orderId": 1,
-  "userName": "John Doe",
-  "address": "123 Main St",
+  "id": 1,
+  "userName": "john",
+  "address": "Jamaica",
+  "status": "PLACED",
   "orderItems": [
     {
       "productId": 1,
+      "bookName": "Product 1",
+      "type": "Type 1",
+      "pricePerQty": 100.0,
       "quantity": 2,
-      "price": 50.0
+      "price": 200.0
     }
-  ],
-  "totalPrice": 100.0,
-  "status": "PLACED"
+  ]
 }
 ```
 

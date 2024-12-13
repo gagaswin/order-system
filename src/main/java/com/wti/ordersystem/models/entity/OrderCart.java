@@ -26,6 +26,6 @@ public class OrderCart {
   @Column(name = "status")
   private ECartStatus status;
 
-  @OneToMany(mappedBy = "orderCart")
+  @OneToMany(mappedBy = "orderCart", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<OrderItem> orderItems;
 }

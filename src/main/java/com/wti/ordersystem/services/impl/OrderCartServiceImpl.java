@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -43,23 +44,41 @@ public class OrderCartServiceImpl implements OrderCartService {
             .orderItems(new ArrayList<>())
             .build());
 
-    OrderItem orderItem = OrderItem.builder()
-        .product(product)
-        .quantity(addOrderCartRequestDto.getQuantity())
-        .price(product.getPrice() * addOrderCartRequestDto.getQuantity())
-        .orderCart(orderCart)
-        .build();
+    Optional<OrderItem> existingOrderItem = orderCart.getOrderItems().stream()
+        .filter(item -> item.getProduct().getId().equals(addOrderCartRequestDto.getProductId()))
+        .findFirst();
 
-    orderCart.getOrderItems().add(orderItem);
+    if (existingOrderItem.isPresent()) {
+      OrderItem orderItem = existingOrderItem.get();
+      int newQuantity = orderItem.getQuantity() + addOrderCartRequestDto.getQuantity();
+
+      if (product.getStock() < newQuantity) {
+        throw new IllegalArgumentException("Insufficient stock product for updated quantity");
+      }
+
+      orderItem.setQuantity(newQuantity);
+      orderItem.setPrice(product.getPrice() * newQuantity);
+    } else {
+      OrderItem orderItem = OrderItem.builder()
+          .product(product)
+          .quantity(addOrderCartRequestDto.getQuantity())
+          .price(product.getPrice() * addOrderCartRequestDto.getQuantity())
+          .orderCart(orderCart)
+          .build();
+      orderCart.getOrderItems().add(orderItem);
+    }
+
     product.setStock(product.getStock() - addOrderCartRequestDto.getQuantity());
 
     productRepository.save(product);
     OrderCart savedOrderCart = orderCartRepository.save(orderCart);
-    orderItemRepository.save(orderItem);
 
     List<OrderItemDto> itemsDto = savedOrderCart.getOrderItems().stream()
         .map(item -> OrderItemDto.builder()
             .productId(item.getProduct().getId())
+            .bookName(item.getProduct().getName())
+            .type(item.getProduct().getType())
+            .pricePerQty(item.getProduct().getPrice())
             .quantity(item.getQuantity())
             .price(item.getPrice())
             .build())
@@ -82,6 +101,9 @@ public class OrderCartServiceImpl implements OrderCartService {
     List<OrderItemDto> itemsDto = orderCart.getOrderItems().stream()
         .map(item -> OrderItemDto.builder()
             .productId(item.getProduct().getId())
+            .bookName(item.getProduct().getName())
+            .type(item.getProduct().getType())
+            .pricePerQty(item.getProduct().getPrice())
             .quantity(item.getQuantity())
             .price(item.getPrice())
             .build())
@@ -122,6 +144,9 @@ public class OrderCartServiceImpl implements OrderCartService {
     List<OrderItemDto> itemsDto = selectedItems.stream()
         .map(item -> OrderItemDto.builder()
             .productId(item.getProduct().getId())
+            .bookName(item.getProduct().getName())
+            .type(item.getProduct().getType())
+            .pricePerQty(item.getProduct().getPrice())
             .quantity(item.getQuantity())
             .price(item.getPrice())
             .build())

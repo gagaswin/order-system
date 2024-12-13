@@ -11,6 +11,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class OrderItemDto {
   private Long productId;
+  private String bookName;
+  private String type;
+  private Double pricePerQty;
   private Integer quantity;
   private Double price;
 }
