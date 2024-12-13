@@ -120,7 +120,7 @@ public class OrderCartServiceImpl implements OrderCartService {
 
   @Override
   public OrderCartResponseDto placeOrder(PlaceOrderRequestDto placeOrderRequestDto) {
-    OrderCart orderCart = orderCartRepository.findByIdAndStatus(placeOrderRequestDto.getCartId(), ECartStatus.DRAFT)
+    OrderCart orderCart = orderCartRepository.findByUserNameAndStatus(placeOrderRequestDto.getUserName(), ECartStatus.DRAFT)
         .orElseThrow(() -> new ResourceNotFoundException("No active cart found for this user"));
 
     List<OrderItem> selectedItems = orderCart.getOrderItems().stream()
