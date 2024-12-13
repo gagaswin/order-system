@@ -25,7 +25,7 @@ public class ProductController {
 
   @GetMapping
   public ResponseEntity<PageResponseWrapper<ProductResponseDto>> getProducts(
-      @RequestParam(defaultValue = "1") int page,
+      @RequestParam(defaultValue = "0") int page,
       @RequestParam(defaultValue = "10") int size) {
     Page<ProductResponseDto> productsResponseDto = productService.getAll(page, size);
     PageResponseWrapper<ProductResponseDto> responseWrapper = new PageResponseWrapper<>(productsResponseDto);
